@@ -36,7 +36,7 @@ pipeline {
                 stage('Push to Nexus') {
                     steps {
                         withCredentials([usernamePassword(
-                                credentialsId: '4d74607a-5636-48d1-805b-22c2aaef1a18',
+                                credentialsId: '67c39064-04df-474f-9353-044da9b6d2f5',
                                 usernameVariable: 'NEXUS_USER',
                                 passwordVariable: 'NEXUS_PASS')]) {
                             sh "echo \$NEXUS_PASS | docker login ${NEXUS_REGISTRY} -u \$NEXUS_USER --password-stdin"
