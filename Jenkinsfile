@@ -56,7 +56,7 @@ pipeline {
                                 usernameVariable: 'NEXUS_USER',
                                 passwordVariable: 'NEXUS_PASS')]) {
                     sh """
-                        sshpass -p '\$PROD_PASS' ssh -o StrictHostKeyChecking=no \$PROD_USER@${PROD_HOST} '
+                        sshpass -p '\$PROD_PASS' ssh -o StrictHostKeyChecking=no root@${PROD_HOST} '
                             docker pull ${FULL_IMAGE_NAME}
                             docker stop ${CONTAINER_NAME} || true
                             docker rm   ${CONTAINER_NAME} || true
