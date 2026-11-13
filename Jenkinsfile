@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NEXUS_REGISTRY  = '153.51.166.83:8123'
-        FULL_IMAGE_NAME = "http://153.51.166.83:8123/war/WAR:1.0"
+        FULL_IMAGE_NAME = "153.51.166.83:8123/war/WAR:1.0"
         PROD_HOST       = '153.51.167.36'
         CONTAINER_NAME  = 'test_app'
     }
@@ -11,8 +11,8 @@ pipeline {
     stages {
         stage('Build & Push') {
             agent {
-                docker {
-                    image 'maven-docker-agent:3.10'
+                dockerfile {
+                    filename 'Dockerfile.agent'
                     args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
                 }
             }
