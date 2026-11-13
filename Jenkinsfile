@@ -1,21 +1,14 @@
 pipeline {
-
-    // Глобально агент не задаём — стадии сами выберут, где выполняться.
     agent none
 
     environment {
         NEXUS_REGISTRY  = '153.51.166.83:8123'
-        FULL_IMAGE_NAME = "${NEXUS_REGISTRY}/war/WAR:1.0"
+        FULL_IMAGE_NAME = "http://153.51.166.83:8123/war/WAR:1.0"
         PROD_HOST       = '153.51.167.36'
         CONTAINER_NAME  = 'test_app'
     }
 
     stages {
-
-        // --------------------------------------------------------
-        // Сборка и push — внутри контейнера maven:3.10 на VM1.
-        // Docker-сокет проброшен, чтобы docker build/push работали.
-        // --------------------------------------------------------
         stage('Build & Push') {
             agent {
                 docker {
@@ -55,10 +48,6 @@ pipeline {
             }
         }
 
-        // --------------------------------------------------------
-        // Деплой — на самом Jenkins-хосте (VM1), где есть ssh
-        // и ssh-agent. Контейнер maven для этого не годится.
-        // --------------------------------------------------------
         stage('Deploy to Prod (VM3)') {
             agent any
             steps {
