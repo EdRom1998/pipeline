@@ -51,7 +51,7 @@ pipeline {
         stage('Deploy to Prod (VM3)') {
             agent any
             steps {
-                sshagent(['efc708d2-e4d5-4267-8390-fa46b17024cb']) {
+                sshagent(['67c39064-04df-474f-9353-044da9b6d2f5']) {
                     sh """
                         ssh -o StrictHostKeyChecking=no root@${PROD_HOST} '
                             docker pull ${FULL_IMAGE_NAME}
