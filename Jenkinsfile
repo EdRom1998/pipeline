@@ -12,7 +12,7 @@ pipeline {
         stage('Build & Push') {
             agent {
                 docker {
-                    image 'maven:3.10-eclipse-temurin-17'
+                    image 'maven-docker-agent:3.10'
                     args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
                 }
             }
