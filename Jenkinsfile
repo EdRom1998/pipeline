@@ -51,7 +51,10 @@ pipeline {
         stage('Deploy to Prod (VM3)') {
             agent any
             steps {
-                sshagent(['67c39064-04df-474f-9353-044da9b6d2f5']) {
+                withCredentials([usernamePassword(
+                                credentialsId: '67c39064-04df-474f-9353-044da9b6d2f5',
+                                usernameVariable: 'NEXUS_USER',
+                                passwordVariable: 'NEXUS_PASS')]) {
                     sh """
                         ssh -o StrictHostKeyChecking=no root@${PROD_HOST} '
                             docker pull ${FULL_IMAGE_NAME}
